@@ -1,20 +1,23 @@
 import React from 'react';
 import { View, Text, Button ,StyleSheet } from 'react-native';
 
-const MapScreen = (props) => {
-        return <View style={styles.screen}><Text>MapScreen!</Text>
-          <Button
-            title="Go to Top"
-            onPress={() => props.navigation.popToTop()}
-           />        
-        </View>
+import MapView from 'react-native-maps';
+
+const MapScreen = props => {
+
+        const mapRegion = {
+          latitude: 37.78,
+          longitude: -122.43,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        }
+
+        return <MapView style={styles.map} region={mapRegion} />
 }
 
 const styles = StyleSheet.create({
-    screen: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    map : {
+        flex: 1
     }
 })
 

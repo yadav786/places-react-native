@@ -15,7 +15,7 @@ const Stack = createStackNavigator();
 const PlacesNavigator = () => {
     
     return <NavigationContainer>
-        <Stack.Navigator initialRouteName="PlaceLists"  
+        <Stack.Navigator initialRouteName="NewPlaces"  
             screenOptions={{
                 headerTitle: 'New Places',
                 headerStyle: {

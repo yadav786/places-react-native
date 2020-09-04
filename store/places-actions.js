@@ -27,10 +27,11 @@ export const addPlace = (title, image) => {
 }
 
 export const loadPlaces = () => {
-        return dispatch => {
+        return async dispatch => {
             try {
             const dbResult = await fetchPlaces();
-            dispatch({type:SET_PLACE, places: dbResult.rows._array});
+            console.log('dbResult', dbResult);
+            dispatch({type:SET_PLACE, places: dbResult.rows});
             }
             catch(err){
                 throw err;

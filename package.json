@@ -17,6 +17,7 @@
     "expo": "~38.0.8",
     "expo-file-system": "~9.1.0",
     "expo-image-picker": "~8.4.0",
+    "expo-location": "~8.2.1",
     "expo-permissions": "~9.1.0",
     "expo-sqlite": "^8.2.1",
     "expo-status-bar": "^1.0.2",
@@ -24,6 +25,7 @@
     "react-dom": "~16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-maps": "0.27.1",
     "react-native-reanimated": "~1.9.0",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "^2.9.0",
@@ -31,8 +33,7 @@
     "react-navigation-header-buttons": "^5.0.2",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0",
-    "expo-location": "~8.2.1"
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

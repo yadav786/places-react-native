@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Button, ActivityIndicator, Alert, StyleSheet } from 'react-native';
 import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
+// import * as Permissions from 'expo-permissions';
 import Colors from '../constants/Colors';
+
+import MapPreview from "./MapPreview";
 
 const LocationPicker = props => {
     
@@ -11,7 +13,7 @@ const LocationPicker = props => {
 
 
     const verifyPermissions = async() => {
-        const result = await Permissions.askAsync(Permissions.Location); //  Permissions.CAMERA_ROLL
+        const result = await Location.requestPermissionsAsync(); //  Permissions.CAMERA_ROLL
         if(result.status !== 'granted'){
             Alert.alert('Insufficient Permissions', [{ text: 'Okay' }]);
             return false;
@@ -19,7 +21,7 @@ const LocationPicker = props => {
         return true;
     }
 
-    const getLocationHandler = () => {
+    const getLocationHandler = async() => {
         const hasPermission = await verifyPermissions();
         if(!hasPermission){
             return;
@@ -27,6 +29,7 @@ const LocationPicker = props => {
         try {
         setIsFetching(true);
         const location = await Location.getCurrentPositionAsync({ timeout: 5000 });
+        console.log('location', location)
         setPickedLocation({ lat: location.coords.latitude, lng: location.coords.longitude});
         }
         catch(err){
@@ -36,11 +39,20 @@ const LocationPicker = props => {
         setIsFetching(false);
     }
 
+    const pickOnMapHandler = async() => {
+        props.navigation.navigate('Map');
+    }
+
     return <View style={styles.locationPicker}>
-        <View style={styles.mapPreview}>
-            { isFetching ? <ActivityIndicator size='large' color={Colors.primary} /> : <Text>No Location Chosen Yet!</Text>}
+        <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler} >
+            <View style={styles.mapPreview}>
+                { isFetching ? <ActivityIndicator size='large' color={Colors.primary} /> : <Text>No Location Chosen Yet!</Text>}
+            </View>
+        </MapPreview>
+        <View style={styles.action}>
+           <Button title="Get User Location" color={Colors.primary} onPress={getLocationHandler}/>
+           <Button title="Pick on Map" color={Colors.primary} onPress={pickOnMapHandler}/>
         </View>
-        <Button title="Get User Location" color={Colors.primary} onPress={getLocationHandler}/>
     </View>
 }
 
@@ -54,8 +66,11 @@ const styles = StyleSheet.create({
         height: 150,
         color: '#ccc',
         borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
+    },
+    action: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%'
     }
 });
 

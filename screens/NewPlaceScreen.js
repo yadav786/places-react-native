@@ -33,7 +33,7 @@ const NewPlaceScreen = props => {
             <Text style={styles.label}>Title</Text>
             <TextInput style={styles.textInput} onChangeText={titleChangeHandler} value={titleValue} />
             <ImgPicker onImageTaken={imageTakenHandler} />
-            <LocationPicker />
+            <LocationPicker navigation={props.navigation}/>
             <Button
                 title="Go to PlaceDetail"
                 onPress={savePlacehandler}

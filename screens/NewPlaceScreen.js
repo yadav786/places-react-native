@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { ScrollView, View, Text, TextInput ,Button, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +12,7 @@ const NewPlaceScreen = props => {
 
     const [titleValue, setTitleValue] = useState('');
     const [selectedImage, setSelectedImage] = useState();
+    const [selectedLocation, setSelectedLocation] = useState();
 
     const dispatch = useDispatch();
 
@@ -20,20 +21,25 @@ const NewPlaceScreen = props => {
     }
 
     const savePlacehandler = () => {
-            dispatch(placesActions.addPlace(titleValue, selectedImage));
-            props.navigation.goBack();
+        
+            dispatch(placesActions.addPlace(titleValue, selectedImage, selectedLocation));
+            // props.navigation.goBack();
     }
 
     const imageTakenHandler = imagePath => {
         setSelectedImage(imagePath);
     }
 
+    const locationPickedHandler = useCallback(location => {
+        setSelectedLocation(location);
+    }, []);
+
     return (<ScrollView>
         <View style={styles.form}>
             <Text style={styles.label}>Title</Text>
             <TextInput style={styles.textInput} onChangeText={titleChangeHandler} value={titleValue} />
             <ImgPicker onImageTaken={imageTakenHandler} />
-            <LocationPicker navigation={props.navigation}/>
+            <LocationPicker navigation={props.navigation}  {...props}  onLocationPicked={locationPickedHandler}/>
             <Button
                 title="Go to PlaceDetail"
                 onPress={savePlacehandler}

@@ -32,9 +32,15 @@ const PlacesListScreen = (props) => {
   }, [navigation]);
 
         return <FlatList data={places} keyExtractor={(item) => item.id} renderItem={itemData => (
-           <PlaceItem image={itemData.item.imageUri} title={itemData.item.title} address={null} onSelect={() => props.navigation.navigate('PlaceDetail', {
+           <PlaceItem 
+            image={itemData.item.imageUri} 
+            title={itemData.item.title} 
+            address={itemData.item.address}
+            latitude={itemData.item.latitude}
+            longitude={itemData.item.longitude} 
+            onSelect={() => props.navigation.navigate('PlaceDetail', {
              placeTitle: itemData.item.title,
-             placeid: itemData.item.id
+             placeid: itemData.item.id,
            }) } />
         )} />
 }
